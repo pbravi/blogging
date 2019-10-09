@@ -1,5 +1,5 @@
-# BLOGGING Platform
-### Web API
+# BLOGGING Platform Web API
+##### For a UI client that consumes this API, please go to [Blogging-UI client](https://github.com/pbravi/Blogging-UI)
 ## Available functions:
 - Login
 - Create posts
