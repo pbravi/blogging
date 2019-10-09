@@ -20,8 +20,8 @@
 - .NET Core 2.1
 - EntityFramework Core 2.1
 - MS Test (for Unit and Integration tests)
-- [Moq] (https://github.com/moq/moq4) (for Unit tests)
-- [DotCover] (https://www.jetbrains.com/dotcover/) (for Test Coverage calculation)
+- [Moq](https://github.com/moq/moq4) (for Unit tests)
+- [DotCover](https://www.jetbrains.com/dotcover/) (for Test Coverage calculation)
 - MSSQLServer Express
 
 ## Usage
