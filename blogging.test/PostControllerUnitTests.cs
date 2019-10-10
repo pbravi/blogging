@@ -20,6 +20,9 @@ namespace blogging.test
     [TestClass]
     public class PostControllerUnitTests
     {
+        /// <summary>
+        /// Test to get all posts
+        /// </summary>
         [TestMethod]
         public void GetAll()
         {
@@ -28,6 +31,10 @@ namespace blogging.test
 
             Assert.IsInstanceOfType(result, typeof(List<Post>));
         }
+
+        /// <summary>
+        /// Test to get a post by id
+        /// </summary>
         [TestMethod]
         public void GetById()
         {
@@ -42,6 +49,9 @@ namespace blogging.test
             Assert.AreEqual(postMock.Body, result.Body);
         }
 
+        /// <summary>
+        /// Test to get a post non existent
+        /// </summary>
         [TestMethod]
         public void GetByIdNotFound()
         {
@@ -52,6 +62,9 @@ namespace blogging.test
             Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
         }
 
+        /// <summary>
+        /// Test to insert a post
+        /// </summary>
         [TestMethod]
         public void Insert()
         {
@@ -62,6 +75,9 @@ namespace blogging.test
             Assert.IsInstanceOfType(result, typeof(CreatedAtRouteResult));
         }
 
+        /// <summary>
+        /// Test to delete a another author's post
+        /// </summary>
         [TestMethod]
         public void DeleteForbidden()
         {
@@ -73,6 +89,9 @@ namespace blogging.test
             Assert.AreEqual(((ObjectResult)result).StatusCode, 403);
         }
 
+        /// <summary>
+        /// Test to delete a post from himself
+        /// </summary>
         [TestMethod]
         public void DeleteOk()
         {
@@ -84,6 +103,9 @@ namespace blogging.test
             Assert.IsInstanceOfType(result, typeof(OkResult));
         }
 
+        /// <summary>
+        /// Try to delete a non existent post
+        /// </summary>
         [TestMethod]
         public void DeleteNotFound()
         {
@@ -104,6 +126,10 @@ namespace blogging.test
             new Post{ Id=4, Autor="pbravi@gmail.com", CreationDate=DateTime.Now, Title="Test title 4", Body="Test body 4" }
         };
 
+        /// <summary>
+        /// Get a PostService with a Mock PostRepository
+        /// </summary>
+        /// <returns></returns>
         private PostService GetMockService()
         {
             var postRepository = new Mock<IRepository<Post>>();
@@ -124,6 +150,11 @@ namespace blogging.test
             return new PostService(postRepository.Object);
         }
 
+        /// <summary>
+        /// Get a Mock ControllerContext for operations that require a user logged
+        /// </summary>
+        /// <param name="userInfo"></param>
+        /// <returns></returns>
         private ControllerContext GetMockContext(UserInfo userInfo = null)
         {
             userInfo = userInfo??new UserInfo { Mail = "for@test.com.ar", Password = "F0rT3sT!" };

@@ -55,11 +55,20 @@ namespace blogging.api
                         )),
                     ClockSkew = TimeSpan.Zero
                 });
+            services.AddSwaggerGen(config =>
+            {
+                config.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "Blogging Web API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(config=>
+            {
+                config.SwaggerEndpoint("/swagger/v1/swagger.json", "Blogging Web API v1");
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

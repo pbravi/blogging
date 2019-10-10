@@ -29,16 +29,6 @@ namespace blogging.api.Controllers
             this.configuration = configuration;
         }
 
-        //[HttpPost("Create")]
-        //public async Task<ActionResult<UserToken>> Create([FromBody]UserInfo userInfo)
-        //{
-        //    var user = new ApplicationUser { UserName = userInfo.Mail, Email = userInfo.Mail };
-        //    var result = await userManager.CreateAsync(user, userInfo.Password);
-        //    if (result.Succeeded)
-        //        return BuildToken(userInfo);
-        //    else
-        //        return BadRequest();
-        //}
         [HttpPost("Login")]
         public async Task<ActionResult<UserToken>> Login([FromBody]UserInfo userInfo)
         {            
@@ -61,8 +51,14 @@ namespace blogging.api.Controllers
             }
         }
 
+        /// <summary>
+        /// Build a token from user info
+        /// </summary>
+        /// <param name="userInfo">Contains mail and user password</param>
+        /// <returns>UserToken</returns>
         private UserToken BuildToken(UserInfo userInfo)
         {
+            //Claims required to generate a token
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.UniqueName, userInfo.Mail),
@@ -71,18 +67,20 @@ namespace blogging.api.Controllers
                 new Claim(ClaimTypes.NameIdentifier, userInfo.Mail),
             };
 
+            //Create a simmetric key from key stored in configuration
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Key"]));
+            //Generate signing credentials from key with SHA256 algorithm
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
+            //Set token expiration to 1 hour
             var expiration = DateTime.UtcNow.AddHours(1);
-
+            //Create token
             JwtSecurityToken token = new JwtSecurityToken
             (
                 claims: claims,
                 expires: expiration,
                 signingCredentials: creds
             );
-
+            //Generate token with WriteToken() method
             return new UserToken { Tokent = new JwtSecurityTokenHandler().WriteToken(token), Expiration = expiration };
         }
     }

@@ -18,26 +18,51 @@ namespace blogging.data
             dbSet = dbContext.Set<T>();
         }
 
+        /// <summary>
+        /// Get all objects asynchronously
+        /// </summary>
+        /// <returns></returns>
         public virtual async Task<List<T>> GetAllAsync()
         {
             return await dbSet.ToListAsync(); 
         }
 
+        /// <summary>
+        /// Get all objects that satisfy a condition
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
         public virtual async Task<List<T>> WhereAsync(Expression<Func<T,bool>> predicate)
         {
             return await dbSet.Where(predicate).ToListAsync();
         }
 
+        /// <summary>
+        /// Get an object by his id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public virtual async Task<T> GetByIdAsync(int id)
         {
             return await dbSet.FindAsync(id);
         }
+
+        /// <summary>
+        /// Delete an object
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public virtual async Task DeleteAsync(T entity)
         {
             dbSet.Remove(entity);
             await dbContext.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// Insert an object
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public virtual async Task InsertAsync(T entity)
         {
             dbSet.Add(entity);
@@ -45,6 +70,11 @@ namespace blogging.data
 
         }
 
+        /// <summary>
+        /// Update an object
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
         public virtual async Task UpdateAsync(T entity)
         {
             dbContext.Entry(entity).State = EntityState.Modified;

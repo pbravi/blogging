@@ -47,6 +47,7 @@ namespace blogging.api.Controllers
         public async Task<ActionResult> Post([FromBody] Post post)
         {
             post.Autor = HttpContext.User.Identity.Name;
+            post.CreationDate = DateTime.Now;
             await postService.InsertAsync(post);
             return new CreatedAtRouteResult("getById", new { id = post.Id }, post);
         }

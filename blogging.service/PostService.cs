@@ -13,12 +13,12 @@ namespace blogging.service
         {
 
         }
-        public async override Task InsertAsync(Post entity)
-        {
-            entity.CreationDate = DateTime.Now;
-            await base.InsertAsync(entity);
-        }
 
+        /// <summary>
+        /// Get all posts
+        /// </summary>
+        /// <param name="textSearch">If has a value, get posts containing this text (in the autor, title or body)</param>
+        /// <returns></returns>
         public async override Task<List<Post>> GetAllAsync(string textSearch)
         {
             if (string.IsNullOrEmpty(textSearch))
