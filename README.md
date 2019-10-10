@@ -22,8 +22,10 @@
 - MS Test (for Unit and Integration tests)
 - [Moq](https://github.com/moq/moq4) (for Unit tests)
 - [DotCover](https://www.jetbrains.com/dotcover/) (for Test Coverage calculation)
+- [Swagger](https://swagger.io/) (for API documentation)
 - MSSQLServer Express
 
 ## Usage
 - Ensure to have a valid connection string in `appsettings.json` file
 - Build and run
+- For API documentation visit `(site url)`/swagger
